@@ -1,20 +1,52 @@
 document.documentElement.classList.add("js");
 
+const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+[
+  ".page-hero .content-panel",
+  ".page-hero .ek-showcase",
+  ".contact-layout",
+  ".section .section-header",
+  ".section .card",
+  ".section .campaign-card",
+  ".section .value-card",
+  ".section .donation-card",
+  ".section .join-role",
+  ".section .contact-detail",
+  ".section .contact-visual-card",
+  ".section .join-form-wrapper",
+  ".section .photo-frame.media-card",
+  ".section .trust-shell",
+].forEach((selector) => {
+  document.querySelectorAll(selector).forEach((element) => {
+    element.classList.add("animate-on-scroll");
+  });
+});
+
 const toggle = document.querySelector("[data-nav-toggle]");
 const nav = document.querySelector("[data-site-nav]");
 
 if (toggle && nav) {
+  const closeNav = () => {
+    nav.classList.remove("open");
+    document.body.classList.remove("nav-open");
+    toggle.setAttribute("aria-expanded", "false");
+  };
+
+  const toggleNav = () => {
+    const willOpen = !nav.classList.contains("open");
+    nav.classList.toggle("open", willOpen);
+    document.body.classList.toggle("nav-open", willOpen);
+    toggle.setAttribute("aria-expanded", willOpen ? "true" : "false");
+  };
+
   toggle.setAttribute("aria-expanded", "false");
 
-  toggle.addEventListener("click", () => {
-    nav.classList.toggle("open");
-    toggle.setAttribute("aria-expanded", nav.classList.contains("open") ? "true" : "false");
-  });
+  toggle.addEventListener("click", toggleNav);
 
   nav.querySelectorAll("a").forEach((link) => {
     link.addEventListener("click", () => {
-      nav.classList.remove("open");
-      toggle.setAttribute("aria-expanded", "false");
+      closeNav();
     });
   });
 
@@ -27,44 +59,250 @@ if (toggle && nav) {
       return;
     }
 
-    nav.classList.remove("open");
-    toggle.setAttribute("aria-expanded", "false");
+    closeNav();
+  });
+
+  document.addEventListener("keydown", (event) => {
+    if (event.key === "Escape" && nav.classList.contains("open")) {
+      closeNav();
+    }
+  });
+
+  window.addEventListener("resize", () => {
+    if (window.innerWidth > 980 && nav.classList.contains("open")) {
+      closeNav();
+    }
   });
 }
 
 const animatedItems = document.querySelectorAll(".animate-on-scroll");
+const countTargets = document.querySelectorAll("[data-count]");
 
-if (animatedItems.length) {
-  if ("IntersectionObserver" in window) {
-    const observerOptions = {
-      root: null,
-      rootMargin: "0px",
-      threshold: 0.15,
-    };
+function animateCount(target) {
+  if (target.dataset.counted === "true") {
+    return;
+  }
 
-    const observer = new IntersectionObserver((entries, currentObserver) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add("is-visible");
+  const finalValue = Number.parseInt(target.dataset.count || target.textContent, 10);
+
+  if (Number.isNaN(finalValue)) {
+    return;
+  }
+
+  target.dataset.counted = "true";
+
+  if (prefersReducedMotion) {
+    target.textContent = String(finalValue);
+    return;
+  }
+
+  const duration = 1200;
+  const start = performance.now();
+
+  const step = (now) => {
+    const progress = Math.min((now - start) / duration, 1);
+    const eased = 1 - (1 - progress) * (1 - progress);
+    target.textContent = String(Math.max(0, Math.round(finalValue * eased)));
+
+    if (progress < 1) {
+      window.requestAnimationFrame(step);
+    }
+  };
+
+  target.textContent = "0";
+  window.requestAnimationFrame(step);
+}
+
+if (animatedItems.length || countTargets.length) {
+  if ("IntersectionObserver" in window && !prefersReducedMotion) {
+    const observer = new IntersectionObserver(
+      (entries, currentObserver) => {
+        entries.forEach((entry) => {
+          if (!entry.isIntersecting) {
+            return;
+          }
+
+          if (entry.target.classList.contains("animate-on-scroll")) {
+            entry.target.classList.add("is-visible");
+          }
+
+          if (entry.target.hasAttribute("data-count")) {
+            animateCount(entry.target);
+          }
+
           currentObserver.unobserve(entry.target);
-        }
-      });
-    }, observerOptions);
+        });
+      },
+      {
+        root: null,
+        rootMargin: "0px 0px -8% 0px",
+        threshold: 0.18,
+      }
+    );
 
     animatedItems.forEach((item) => {
       observer.observe(item);
+    });
+
+    countTargets.forEach((target) => {
+      observer.observe(target);
     });
   } else {
     animatedItems.forEach((item) => {
       item.classList.add("is-visible");
     });
+
+    countTargets.forEach((target) => {
+      animateCount(target);
+    });
   }
 }
+
+(function () {
+  const donatePageHref = window.location.pathname.includes("/pages/")
+    ? "./donate.html"
+    : "./pages/donate.html";
+  const contactPageHref = window.location.pathname.includes("/pages/")
+    ? "./contact.html"
+    : "./pages/contact.html";
+  const isDonatePage = /\/donate\.html$/.test(window.location.pathname);
+  const firstVisitPopupKey = "yss-donate-popup-seen";
+
+  const modal = document.createElement("div");
+  modal.className = "donate-modal";
+  modal.setAttribute("hidden", "");
+  modal.innerHTML = `
+    <div class="donate-modal-backdrop" data-donate-close></div>
+    <div class="donate-modal-dialog" role="dialog" aria-modal="true" aria-labelledby="donate-modal-title">
+      <button class="donate-modal-close" type="button" aria-label="Close donation popup" data-donate-close>&times;</button>
+      <span class="eyebrow">Support YSS</span>
+      <h2 id="donate-modal-title">Back the work happening on the ground.</h2>
+      <p class="donate-modal-copy">
+        Choose a support amount to continue. Your contribution helps YSS strengthen drives,
+        awareness work, volunteer coordination, and Ek Prayas employment support.
+      </p>
+      <div class="donate-modal-amounts" role="group" aria-label="Suggested donation amounts">
+        <button type="button" class="donate-modal-amount active" data-donate-amount="500">₹500</button>
+        <button type="button" class="donate-modal-amount" data-donate-amount="1000">₹1,000</button>
+        <button type="button" class="donate-modal-amount" data-donate-amount="2500">₹2,500</button>
+        <button type="button" class="donate-modal-amount" data-donate-amount="5000">₹5,000</button>
+      </div>
+      <p class="donate-modal-note">Selected support: <strong data-donate-selected>₹500</strong></p>
+      <div class="donate-modal-actions">
+        <a class="btn" href="${donatePageHref}?amount=500" data-donate-continue>Continue to Donate</a>
+        <a class="btn-secondary" href="${contactPageHref}">Need donation help?</a>
+      </div>
+    </div>
+  `;
+
+  document.body.appendChild(modal);
+
+  const closeButtons = modal.querySelectorAll("[data-donate-close]");
+  const amountButtons = modal.querySelectorAll("[data-donate-amount]");
+  const selectedText = modal.querySelector("[data-donate-selected]");
+  const continueLink = modal.querySelector("[data-donate-continue]");
+  let lastFocusedElement = null;
+  let selectedAmount = 500;
+
+  function markPopupSeen() {
+    try {
+      window.localStorage.setItem(firstVisitPopupKey, "true");
+    } catch {}
+  }
+
+  function hasSeenPopup() {
+    try {
+      return window.localStorage.getItem(firstVisitPopupKey) === "true";
+    } catch {
+      return false;
+    }
+  }
+
+  function updateDonateSelection(amount) {
+    selectedAmount = amount;
+    amountButtons.forEach((button) => {
+      button.classList.toggle("active", Number(button.dataset.donateAmount) === amount);
+    });
+    selectedText.textContent = `₹${amount.toLocaleString("en-IN")}`;
+    continueLink.href = `${donatePageHref}?amount=${amount}`;
+  }
+
+  function openDonateModal() {
+    lastFocusedElement = document.activeElement;
+    modal.hidden = false;
+    document.body.classList.add("modal-open");
+    updateDonateSelection(selectedAmount);
+    const activeButton = modal.querySelector(".donate-modal-amount.active");
+    if (activeButton) {
+      activeButton.focus();
+    }
+  }
+
+  function closeDonateModal() {
+    modal.hidden = true;
+    document.body.classList.remove("modal-open");
+    markPopupSeen();
+    if (lastFocusedElement instanceof HTMLElement) {
+      lastFocusedElement.focus();
+    }
+  }
+
+  closeButtons.forEach((button) => {
+    button.addEventListener("click", closeDonateModal);
+  });
+
+  amountButtons.forEach((button) => {
+    button.addEventListener("click", () => {
+      updateDonateSelection(Number(button.dataset.donateAmount));
+    });
+  });
+
+  continueLink.addEventListener("click", () => {
+    markPopupSeen();
+  });
+
+  modal.addEventListener("click", (event) => {
+    if (event.target === modal) {
+      closeDonateModal();
+    }
+  });
+
+  document.addEventListener("keydown", (event) => {
+    if (event.key === "Escape" && !modal.hidden) {
+      closeDonateModal();
+    }
+  });
+
+  if (!isDonatePage && !hasSeenPopup()) {
+    window.setTimeout(() => {
+      openDonateModal();
+      markPopupSeen();
+    }, prefersReducedMotion ? 400 : 1800);
+  }
+})();
 
 /* ──────── Donate Amount Selection ──────── */
 (function () {
   const amountsContainer = document.getElementById("donate-amounts");
   const customInput = document.getElementById("donate-custom-input");
+  const amountFromQuery = Number.parseInt(new URLSearchParams(window.location.search).get("amount") || "", 10);
+
+  function selectAmount(amount) {
+    if (!amountsContainer) return;
+    let matchedPreset = false;
+
+    amountsContainer.querySelectorAll(".donate-amount-btn").forEach((button) => {
+      const isMatch = Number(button.dataset.amount) === amount;
+      button.classList.toggle("selected", isMatch);
+      if (isMatch) {
+        matchedPreset = true;
+      }
+    });
+
+    if (customInput) {
+      customInput.value = matchedPreset ? "" : String(amount);
+    }
+  }
 
   if (amountsContainer) {
     amountsContainer.addEventListener("click", (e) => {
@@ -85,6 +323,10 @@ if (animatedItems.length) {
       // Clear preset selection when custom input is used
       amountsContainer.querySelectorAll(".donate-amount-btn").forEach((b) => b.classList.remove("selected"));
     });
+  }
+
+  if (amountsContainer && Number.isFinite(amountFromQuery) && amountFromQuery > 0) {
+    selectAmount(amountFromQuery);
   }
 })();
 
