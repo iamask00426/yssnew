@@ -1,0 +1,6 @@
+.venv-imagegen/
+update_gallery.py
+update_gallery2.py
+__pycache__/
+*.log
+.DS_Store
