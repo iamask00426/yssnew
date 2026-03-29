@@ -2995,6 +2995,8 @@ body::after {
 .container.trust-shell {
   position: relative;
   overflow: hidden;
+  padding: 3.5rem 3rem !important;
+  border-radius: var(--radius-xl) !important;
   background:
     linear-gradient(135deg, rgba(20, 59, 47, 0.98), rgba(12, 39, 32, 0.96)) !important;
   border: 1px solid rgba(255, 255, 255, 0.08) !important;
@@ -3016,13 +3018,31 @@ body::after {
   z-index: 1;
 }
 
-.trust-band .trust-shell .section-header h2,
+.trust-band .trust-shell .section-header {
+  align-items: center;
+  gap: 2rem;
+}
+
+.trust-band .trust-shell .section-header h2 {
+  font-family: var(--font-display) !important;
+  background: linear-gradient(135deg, #FFF, #ffd58d);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent !important;
+  font-size: clamp(2.2rem, 5vw, 3.5rem) !important;
+}
+
 .trust-band .trust-shell .section-header p,
-.trust-band .trust-shell .metric,
 .trust-band .trust-shell .card h3,
 .trust-band .trust-shell .card p,
 .trust-band .trust-shell .metric-note {
   color: #fff !important;
+}
+
+.trust-band .trust-shell .metric {
+  color: #55d594 !important; /* New distinct color for metrics */
+  font-family: var(--font-display) !important;
 }
 
 .trust-band .trust-shell .section-header .eyebrow {
@@ -3034,10 +3054,6 @@ body::after {
   background: rgba(255, 255, 255, 0.08) !important;
   border: 1px solid rgba(255, 255, 255, 0.08) !important;
   box-shadow: none !important;
-}
-
-.trust-band .trust-shell .metric {
-  color: #ffd58d !important;
 }
 
 .ek-section .ek-showcase,
@@ -4040,4 +4056,649 @@ body.nav-open {
 .card.highlight .bullet-list li {
   color: rgba(255, 255, 255, 0.82) !important;
   border-top-color: rgba(255, 255, 255, 0.14) !important;
+}
+
+/* Refined Palette Update */
+:root {
+  --bg: #f3efe8;
+  --surface: rgba(252, 248, 242, 0.92);
+  --surface-soft: rgba(247, 242, 234, 0.88);
+  --surface-muted: rgba(236, 229, 219, 0.92);
+  --ink: #1d2424;
+  --ink-soft: #4b5655;
+  --ink-muted: #717b79;
+  --green: #1f3536;
+  --green-soft: #314a4b;
+  --green-tint: rgba(31, 53, 54, 0.08);
+  --saffron: #b88a57;
+  --saffron-soft: rgba(184, 138, 87, 0.12);
+  --line: rgba(38, 45, 44, 0.1);
+  --line-strong: rgba(38, 45, 44, 0.18);
+  --shadow: 0 24px 60px rgba(24, 30, 29, 0.1);
+}
+
+html {
+  background:
+    radial-gradient(circle at 10% 18%, rgba(184, 138, 87, 0.1), transparent 20%),
+    radial-gradient(circle at 85% 10%, rgba(31, 53, 54, 0.1), transparent 22%),
+    linear-gradient(180deg, #f7f3ec 0%, #f1ebe2 100%);
+}
+
+body {
+  background:
+    radial-gradient(circle at top left, rgba(184, 138, 87, 0.08), transparent 22%),
+    radial-gradient(circle at 82% 8%, rgba(31, 53, 54, 0.08), transparent 24%),
+    linear-gradient(180deg, #f5f0e8 0%, #eee7dd 100%);
+}
+
+body::before {
+  background-image:
+    linear-gradient(rgba(31, 53, 54, 0.025) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(31, 53, 54, 0.025) 1px, transparent 1px);
+}
+
+.site-shell::before {
+  background: rgba(184, 138, 87, 0.12);
+}
+
+.site-shell::after {
+  background: rgba(31, 53, 54, 0.1);
+}
+
+.header-inner {
+  background:
+    linear-gradient(135deg, rgba(253, 250, 245, 0.9), rgba(246, 239, 229, 0.82)),
+    rgba(255, 255, 255, 0.66);
+}
+
+.hero-shell {
+  background:
+    radial-gradient(circle at top right, rgba(184, 138, 87, 0.14), transparent 20%),
+    radial-gradient(circle at left center, rgba(31, 53, 54, 0.1), transparent 24%),
+    linear-gradient(135deg, rgba(255, 252, 247, 0.98), rgba(244, 236, 226, 0.94));
+}
+
+.hero-shell::before {
+  background: linear-gradient(135deg, rgba(184, 138, 87, 0.14), rgba(184, 138, 87, 0));
+}
+
+.trust-band .trust-shell,
+.container.trust-shell {
+  background:
+    linear-gradient(135deg, rgba(30, 47, 48, 0.98), rgba(22, 36, 37, 0.97)) !important;
+}
+
+.trust-band .trust-shell::before {
+  background:
+    radial-gradient(circle at top right, rgba(184, 138, 87, 0.16), transparent 28%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.035), transparent);
+}
+
+.trust-band .trust-shell .metric {
+  color: #d8bc92 !important;
+}
+
+.highlight,
+.content-panel.highlight,
+.card.highlight,
+.highlight.card,
+.highlight.content-panel,
+.story-section .content-panel.highlight,
+.gallery-story-section .content-panel.highlight,
+.cta-section .content-panel.highlight {
+  background:
+    radial-gradient(circle at top right, rgba(184, 138, 87, 0.16), transparent 28%),
+    linear-gradient(160deg, rgba(30, 47, 48, 0.98), rgba(24, 39, 40, 0.97)) !important;
+}
+
+.highlight::before,
+.content-panel.highlight::before,
+.card.highlight::before,
+.highlight.card::before,
+.highlight.content-panel::before {
+  background: linear-gradient(90deg, #c49a69, rgba(255, 255, 255, 0.22)) !important;
+}
+
+.ek-section .ek-showcase,
+.ek-page-hero .ek-showcase {
+  background:
+    radial-gradient(circle at top right, rgba(184, 138, 87, 0.18), transparent 26%),
+    linear-gradient(135deg, rgba(30, 47, 48, 0.98), rgba(36, 56, 57, 0.98)) !important;
+}
+
+.ek-section .ek-showcase::before,
+.ek-page-hero .ek-showcase::before {
+  background:
+    linear-gradient(90deg, rgba(255, 255, 255, 0.03), transparent 35%),
+    radial-gradient(circle at bottom left, rgba(184, 138, 87, 0.1), transparent 24%);
+}
+
+.footer-card {
+  background:
+    radial-gradient(circle at top right, rgba(184, 138, 87, 0.16), transparent 22%),
+    linear-gradient(135deg, rgba(30, 47, 48, 0.98), rgba(21, 33, 34, 0.98));
+}
+
+.footer-card::before {
+  background: radial-gradient(circle, rgba(184, 138, 87, 0.14), rgba(184, 138, 87, 0));
+}
+
+.site-nav a.nav-donate,
+.footer-links .nav-donate,
+.donate-cta-btn {
+  background: linear-gradient(135deg, #c49a69, #a97845) !important;
+  box-shadow:
+    0 12px 24px rgba(169, 120, 69, 0.24),
+    0 0 0 1px rgba(255, 255, 255, 0.14) inset !important;
+}
+
+.site-nav a.nav-donate::before,
+.footer-links .nav-donate::before {
+  opacity: 0.32;
+}
+
+.site-nav a.nav-donate:hover,
+.footer-links .nav-donate:hover,
+.donate-cta-btn:hover {
+  filter: saturate(1.02);
+}
+
+.donate-modal-dialog {
+  background:
+    radial-gradient(circle at top right, rgba(184, 138, 87, 0.16), transparent 24%),
+    linear-gradient(135deg, rgba(253, 249, 243, 0.98), rgba(244, 236, 226, 0.96));
+}
+
+.donate-impact-icon,
+.ek-stat-icon {
+  background: rgba(184, 138, 87, 0.14);
+}
+
+/* Teal Palette + Alignment Cleanup */
+:root {
+  --bg: #f3efe8;
+  --surface: rgba(252, 248, 242, 0.92);
+  --surface-soft: rgba(247, 242, 234, 0.88);
+  --surface-muted: rgba(236, 229, 219, 0.92);
+  --ink: #1d2328;
+  --ink-soft: #4d5861;
+  --ink-muted: #73808b;
+  --green: #183847;
+  --green-soft: #2b576a;
+  --green-tint: rgba(24, 56, 71, 0.08);
+  --saffron: #c58a41;
+  --saffron-soft: rgba(197, 138, 65, 0.12);
+  --line: rgba(35, 46, 54, 0.1);
+  --line-strong: rgba(35, 46, 54, 0.18);
+  --shadow: 0 24px 60px rgba(20, 28, 34, 0.1);
+}
+
+html {
+  background:
+    radial-gradient(circle at 10% 18%, rgba(197, 138, 65, 0.1), transparent 20%),
+    radial-gradient(circle at 85% 10%, rgba(24, 56, 71, 0.1), transparent 22%),
+    linear-gradient(180deg, #f7f3ec 0%, #f1ebe2 100%);
+}
+
+body {
+  background:
+    radial-gradient(circle at top left, rgba(197, 138, 65, 0.08), transparent 22%),
+    radial-gradient(circle at 82% 8%, rgba(24, 56, 71, 0.08), transparent 24%),
+    linear-gradient(180deg, #f5f0e8 0%, #eee7dd 100%);
+}
+
+body::before {
+  background-image:
+    linear-gradient(rgba(24, 56, 71, 0.025) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(24, 56, 71, 0.025) 1px, transparent 1px);
+}
+
+.site-shell::before {
+  background: rgba(197, 138, 65, 0.12);
+}
+
+.site-shell::after {
+  background: rgba(24, 56, 71, 0.1);
+}
+
+.header-inner {
+  align-items: center;
+  background:
+    linear-gradient(135deg, rgba(253, 250, 245, 0.9), rgba(245, 239, 231, 0.82)),
+    rgba(255, 255, 255, 0.66);
+}
+
+.brand-copy {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 0.18rem;
+}
+
+.brand-copy strong,
+.brand-copy span {
+  margin: 0;
+}
+
+.site-nav {
+  align-items: center;
+}
+
+.site-nav a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.hero-shell {
+  background:
+    radial-gradient(circle at top right, rgba(197, 138, 65, 0.14), transparent 20%),
+    radial-gradient(circle at left center, rgba(24, 56, 71, 0.1), transparent 24%),
+    linear-gradient(135deg, rgba(255, 252, 247, 0.98), rgba(244, 236, 226, 0.94));
+}
+
+.hero-shell::before {
+  background: linear-gradient(135deg, rgba(197, 138, 65, 0.14), rgba(197, 138, 65, 0));
+}
+
+.hero-copy,
+.ek-content,
+.contact-intro {
+  align-items: flex-start;
+}
+
+.hero-panel-copy {
+  align-items: flex-start;
+  justify-content: flex-start;
+  flex-direction: column;
+}
+
+.hero-panel-copy strong {
+  max-width: none;
+}
+
+.section-header {
+  align-items: end;
+}
+
+.section-header > div {
+  display: grid;
+  gap: 0.35rem;
+}
+
+.section-header p,
+.content-panel p:last-child,
+.card p:last-child,
+.campaign-card p:last-child,
+.value-card p:last-child,
+.donation-card p:last-child {
+  margin-bottom: 0;
+}
+
+.trust-band .trust-shell,
+.container.trust-shell {
+  background:
+    linear-gradient(135deg, rgba(23, 43, 55, 0.98), rgba(18, 31, 41, 0.97)) !important;
+}
+
+.trust-band .trust-shell::before {
+  background:
+    radial-gradient(circle at top right, rgba(197, 138, 65, 0.16), transparent 28%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.035), transparent);
+}
+
+.trust-band .trust-shell .metric {
+  color: #ddbf8f !important;
+}
+
+.trust-grid,
+.footer-grid,
+.contact-detail-grid,
+.hero-metrics {
+  align-items: stretch;
+}
+
+.highlight,
+.content-panel.highlight,
+.card.highlight,
+.highlight.card,
+.highlight.content-panel,
+.story-section .content-panel.highlight,
+.gallery-story-section .content-panel.highlight,
+.cta-section .content-panel.highlight {
+  background:
+    radial-gradient(circle at top right, rgba(197, 138, 65, 0.16), transparent 28%),
+    linear-gradient(160deg, rgba(23, 43, 55, 0.98), rgba(19, 35, 45, 0.97)) !important;
+}
+
+.highlight::before,
+.content-panel.highlight::before,
+.card.highlight::before,
+.highlight.card::before,
+.highlight.content-panel::before {
+  background: linear-gradient(90deg, #cca06a, rgba(255, 255, 255, 0.2)) !important;
+}
+
+.ek-section .ek-showcase,
+.ek-page-hero .ek-showcase {
+  background:
+    radial-gradient(circle at top right, rgba(197, 138, 65, 0.18), transparent 26%),
+    linear-gradient(135deg, rgba(23, 43, 55, 0.98), rgba(28, 52, 64, 0.98)) !important;
+}
+
+.ek-section .ek-showcase::before,
+.ek-page-hero .ek-showcase::before {
+  background:
+    linear-gradient(90deg, rgba(255, 255, 255, 0.03), transparent 35%),
+    radial-gradient(circle at bottom left, rgba(197, 138, 65, 0.1), transparent 24%);
+}
+
+.footer-card {
+  background:
+    radial-gradient(circle at top right, rgba(197, 138, 65, 0.16), transparent 22%),
+    linear-gradient(135deg, rgba(23, 43, 55, 0.98), rgba(18, 30, 39, 0.98));
+}
+
+.footer-card::before {
+  background: radial-gradient(circle, rgba(197, 138, 65, 0.14), rgba(197, 138, 65, 0));
+}
+
+.site-nav a.nav-donate,
+.footer-links .nav-donate,
+.donate-cta-btn {
+  background: linear-gradient(135deg, #cf9a56, #b27b37) !important;
+  box-shadow:
+    0 12px 24px rgba(178, 123, 55, 0.24),
+    0 0 0 1px rgba(255, 255, 255, 0.14) inset !important;
+}
+
+.donate-modal-dialog {
+  background:
+    radial-gradient(circle at top right, rgba(197, 138, 65, 0.16), transparent 24%),
+    linear-gradient(135deg, rgba(253, 249, 243, 0.98), rgba(244, 236, 226, 0.96));
+}
+
+.donate-impact-icon,
+.ek-stat-icon {
+  background: rgba(197, 138, 65, 0.14);
+}
+
+.donate-panel-top,
+.donate-cta-row,
+.contact-detail-head,
+.footer-grid > div,
+.campaign-card,
+.value-card,
+.donation-card,
+.join-role,
+.contact-detail {
+  align-items: flex-start;
+}
+
+/* Trust Section Typography + Alignment Fix */
+.trust-shell .section-header {
+  display: grid;
+  grid-template-columns: minmax(0, 1.45fr) minmax(260px, 0.75fr);
+  gap: 1.2rem 2rem;
+  align-items: end;
+  margin-bottom: 1.55rem;
+}
+
+.trust-shell .section-header > div {
+  display: grid;
+  gap: 0.5rem;
+}
+
+.trust-shell .section-header .eyebrow {
+  width: fit-content;
+  margin-bottom: 0;
+  padding: 0.34rem 0.78rem 0.34rem 0.42rem;
+  font-size: 0.78rem;
+  letter-spacing: 0.08em;
+}
+
+.trust-shell .section-header h2 {
+  margin: 0;
+  max-width: 13ch;
+  font-size: clamp(2.55rem, 4.4vw, 4.2rem);
+  line-height: 0.96;
+  letter-spacing: -0.055em;
+  font-weight: 700;
+}
+
+.trust-shell .section-header p {
+  margin: 0;
+  max-width: 24ch;
+  margin-left: auto;
+  font-size: 1rem;
+  line-height: 1.65;
+  color: rgba(255, 255, 255, 0.82) !important;
+}
+
+.trust-shell .trust-grid {
+  gap: 1rem;
+  align-items: stretch;
+}
+
+.trust-shell .card {
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+  min-height: 100%;
+  padding: 1.3rem 1.2rem;
+}
+
+.trust-shell .metric-note {
+  padding: 0;
+  background: transparent !important;
+  color: rgba(255, 255, 255, 0.74) !important;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+}
+
+.trust-shell .metric {
+  margin: 0.1rem 0 0;
+  font-size: 1.9rem;
+  line-height: 1.02;
+  letter-spacing: -0.05em;
+  font-weight: 700;
+}
+
+.trust-shell .card h3 {
+  margin: 0;
+  font-size: 1rem;
+  line-height: 1.18;
+  letter-spacing: -0.03em;
+}
+
+.trust-shell .card p {
+  margin: 0.4rem 0 0;
+  font-size: 0.94rem;
+  line-height: 1.68;
+  color: rgba(255, 255, 255, 0.8) !important;
+}
+
+@media (max-width: 980px) {
+  .trust-shell .section-header {
+    grid-template-columns: 1fr;
+    gap: 0.9rem;
+  }
+
+  .trust-shell .section-header p {
+    max-width: none;
+    margin-left: 0;
+  }
+}
+
+@media (max-width: 720px) {
+  .trust-shell .section-header h2 {
+    max-width: none;
+    font-size: clamp(2.1rem, 8vw, 3rem);
+  }
+
+  .trust-shell .card {
+    padding: 1.05rem;
+  }
+
+  .trust-shell .metric {
+    font-size: 1.65rem;
+  }
+}
+
+/* Homepage Alignment + Hero Cleanup */
+.home-hero {
+  padding-top: 1.4rem;
+}
+
+.header-inner {
+  gap: 1.25rem;
+}
+
+.brand {
+  flex: 0 1 auto;
+}
+
+.brand-copy strong {
+  font-size: 0.98rem;
+  letter-spacing: -0.03em;
+  line-height: 1.08;
+  font-weight: 700;
+}
+
+.brand-copy span {
+  font-size: 0.78rem;
+  line-height: 1.35;
+  font-weight: 500;
+}
+
+.site-nav {
+  gap: 0.18rem;
+}
+
+.site-nav a {
+  font-size: 0.84rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  min-height: 2.7rem;
+}
+
+.site-nav a.nav-donate {
+  font-weight: 700;
+}
+
+.hero-grid {
+  align-items: start;
+}
+
+.hero-copy h1 {
+  max-width: 8.7ch;
+  letter-spacing: -0.06em;
+}
+
+.hero-copy .lead {
+  max-width: 54ch;
+}
+
+.hero-actions {
+  align-items: center;
+}
+
+.support-line {
+  margin: 0.15rem 0 0;
+  font-size: 0.98rem;
+}
+
+.hero-metrics {
+  align-items: stretch;
+  gap: 0.95rem;
+}
+
+.hero-metric {
+  display: flex;
+  align-items: flex-end;
+  gap: 0.85rem;
+  min-height: 112px;
+  padding: 1rem 1.05rem;
+}
+
+.hero-metric strong {
+  margin: 0;
+  flex: 0 0 auto;
+  min-width: 1.5ch;
+  font-size: 2.35rem;
+  letter-spacing: -0.06em;
+}
+
+.hero-metric span {
+  display: block;
+  max-width: 8ch;
+  font-size: 0.82rem;
+  line-height: 1.25;
+  font-weight: 700;
+}
+
+.hero-panel {
+  padding: 1.05rem;
+}
+
+.hero-panel-copy {
+  margin-bottom: 1rem;
+  padding: 0.85rem 0.95rem;
+}
+
+.hero-panel-copy span {
+  font-size: 0.72rem;
+}
+
+.hero-panel-copy strong {
+  font-size: 0.98rem;
+  line-height: 1.45;
+}
+
+.collage-column {
+  gap: 1.05rem;
+}
+
+.photo-caption strong {
+  font-size: 0.98rem;
+  line-height: 1.15;
+}
+
+.photo-caption span {
+  line-height: 1.5;
+}
+
+.trust-shell .section-header {
+  align-items: start;
+}
+
+@media (max-width: 980px) {
+  .site-nav a {
+    font-size: 0.92rem;
+  }
+
+  .hero-metric {
+    min-height: 96px;
+  }
+}
+
+@media (max-width: 720px) {
+  .home-hero {
+    padding-top: 0.9rem;
+  }
+
+  .hero-metric {
+    align-items: center;
+    min-height: auto;
+    padding: 0.9rem;
+  }
+
+  .hero-metric strong {
+    font-size: 2rem;
+  }
+
+  .hero-metric span {
+    max-width: none;
+  }
 }
